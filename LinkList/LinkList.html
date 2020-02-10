@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>链表</title>
+</head>
+
+<body>
+  <script>
+    function LinkedList() {
+      function Node(data) {
+        this.data = data;
+        this.next = null;
+      }
+
+      this.head = null;
+      this.length = 0;
+
+      LinkedList.prototype.append = function (data) {
+        // 判断是不是新加的第一个节点
+        let newNode = new Node(data);
+        if (this.length === 0) {
+          this.head = newNode;
+        } else {
+          let current = this.head;
+
+          while (current.next) {
+            current = current.next
+          }
+          current.next = newNode;
+        }
+        this.length += 1;
+      }
+      LinkedList.prototype.toString = function () {
+        let current = this.head;
+        let listString = ""
+        while (current) {
+          listString += current.data + " "
+          current = current.next;
+        }
+        return listString
+      }
+      LinkedList.prototype.insert = function (newData, item) {
+        let newNode = new Node(newData);
+        let current = this.find(item);
+        newNode.next = current.next;
+        current.next = newNode;
+        this.length += 1;
+      }
+
+      LinkedList.prototype.find = function (item) {
+        let currentNode = this.head;
+        while (currentNode.data != item) {
+          currentNode = currentNode.next;
+          if (!currentNode) {
+            break;
+          }
+        }
+
+        return currentNode;
+      }
+      // 找到上一个节点
+      LinkedList.prototype.findPrev = function (item) {
+        let currentNode = this.head;
+        while (currentNode.next && (currentNode.next.data !== item)) {
+          currentNode = currentNode.next;
+        }
+        return currentNode;
+      }
+      // 删除节点
+      LinkedList.prototype.remove = function (item) {
+        let prev = this.findPrev(item);
+        prev.next = prev.next.next
+      }
+    }
+    let list = new LinkedList();
+    list.append("a");
+    list.append("b");
+    list.append("c");
+    list.append("d");
+    // console.log(list)
+    // list.insert("s", "a")
+    console.log(list.toString())
+    list.remove("b")
+    console.log(list.toString())
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function ListNode(val) {
+      this.val = val;
+      this.next = null;
+    }
+    // https://leetcode-cn.com/problems/reverse-linked-list/
+    // 输入: 1->2->3->4->5->NULL
+    // 输出: 5->4->3->2->1->NULL
+    // let reverseList = (head) => {
+    //   if (!head) {
+    //     return null;
+    //   }
+    //   // 判断条件为current是否还有节点
+    //   let pre = null;
+    //   let current = head;
+    //   while (current) {
+    //     let next = current.next
+    //     current.next = pre;
+    //     pre = current;
+    //     current = next;
+    //   }
+    // }
+    // 递归
+    let reverseList = (head) => {
+      let rever = (pre, cur) => {
+        if (!cur) {
+          return pre
+        }
+        let next = cur.next;
+        cur.next = pre;
+        rever(cur, next)
+      }
+      return rever(null, head)
+    }
+  </script>
+</body>
+
+</html>

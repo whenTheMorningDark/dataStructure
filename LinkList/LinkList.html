@@ -80,22 +80,30 @@
 				};
 				// 反转节点
 				LinkedList.prototype.reverse = function() {
-					// console.log(this);
-					// let currentList = this;
 					let head = this.head;
-					// console.log(head);
-					if (!head || !head.next) {
-						return;
-					}
-					let prev = null;
-					let current = head;
-					while (current) {
-						let next = current.next;
-						current.next = prev;
-						prev = current;
-						current = next;
-					}
-					this.head = prev;
+					// if (!head || !head.next) {
+					// 	return;
+					// }
+					// let prev = null;
+					// let current = head;
+					// while (current) {
+					// 	let next = current.next;
+					// 	current.next = prev;
+					// 	prev = current;
+					// 	current = next;
+					// }
+					// this.head = prev;
+					let r = (pre, cur) => {
+						if (!cur) {
+							this.head = pre;
+							return;
+						}
+						// 保存 next 节点
+						let next = cur.next;
+						cur.next = pre;
+						r(cur, next);
+					};
+					return r(null, head);
 				};
 			}
 			let list = new LinkedList();

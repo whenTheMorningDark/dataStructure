@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function fn(n) {
+      if (n > 0) {
+        console.log("前" + n)
+        fn(n - 1);
+        console.log("中" + n)
+        fn(n - 2)
+        console.log("后" + n)
+      }
+      console.log(n)
+    }
+    fn(5)
+
+
+    //   void rec(int N);
+    // int main()
+    // {
+    //   rec(11);
+    //   return 0;
+    //  } 
+
+    // void rec(int N) {
+    //   if (N>0){
+    //     rec(N - 10);//rec1
+    //     rec(N - 1);//rec2
+    //   }
+    //   printf("%d\n",N);  //此时的打印就相当于出栈 
+    //   printf("*******\n");
+    //   return; 
+  </script>
+
+</body>
+
+</html>

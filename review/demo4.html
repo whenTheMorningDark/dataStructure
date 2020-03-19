@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function formatParams(data) {
+      var arr = [];
+      for (var name in data) {
+        arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+      }
+      arr.push(("v=" + Math.random()).replace(".", ""));
+      return arr.join("&");
+    }
+    // 实现原生的ajax
+    function ajax(options) {
+      let {
+        url,
+        params,
+        method
+      } = options;
+      let xhr = new XMLHttpRequest();
+      let optionsStr = formatParams(params);
+      return new Promise((reslove, reject) => {
+
+        if (method === "GET") {
+
+          xhr.open(method, url + "?" + optionsStr, true);
+          console.log(xhr)
+          xhr.send(null)
+        } else {
+          xhr.open("POST", url, true);
+          //设置表单提交时的内容类型
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send(optionsStr);
+        }
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            var status = xhr.status;
+            if (status >= 200 && status < 300) {
+              reslove(xhr.responseText)
+            } else {
+              reject("error");
+            }
+          }
+        }
+      })
+    }
+    ajax({
+      url: "https://api.apiopen.top/searchAuthors",
+      params: {
+        name: "李白"
+      },
+      method: "GET"
+    }).then(res => {
+      console.log(res);
+    })
+
+    // ajax({url:"https://api.apiopen.top/searchAuthors",params:{
+    //   name:"李白"
+    // }}, (res) => {
+    //   console.log(res)
+    // })
+  </script>
+</body>
+
+</html>

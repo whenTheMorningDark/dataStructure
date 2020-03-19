@@ -1,3 +1,5 @@
 let a: any = 'senven';
 a = 7;
-console.log(a);
+let str: string = 'aaa';
+let s: string = 'asd';
+console.log(s);

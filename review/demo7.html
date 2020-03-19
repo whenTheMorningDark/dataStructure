@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let cityData = [{
+        id: 1,
+        name: '广东省',
+        children: [{
+          id: 11,
+          parentId: 1,
+          name: '深圳',
+          children: [{
+              id: 111,
+              name: '宝安',
+              parentId: 11,
+              children: [{
+                  id: 1111,
+                  name: '西乡',
+                  parentId: 111,
+                  children: [{
+                      id: 11111,
+                      name: '坪洲',
+                      parentId: 1111,
+                      children: []
+                    },
+                    {
+                      id: 11112,
+                      name: '灵芝',
+                      children: [],
+                      parentId: 1111
+                    }
+                  ]
+                },
+                {
+                  id: 1112,
+                  name: '南山',
+                  parentId: 111,
+                  children: [{
+                    id: 11121,
+                    name: '科技园',
+                    children: [],
+                    parentId: 1112
+                  }]
+                }
+              ]
+            },
+            {
+              id: 112,
+              name: '福田',
+              children: [],
+              parentId: 11
+            }
+          ]
+        }]
+      },
+      {
+        id: 2,
+        name: '湖南省',
+        children: []
+      }
+    ];
+    // 根据数组id获取元素
+    let getTreedataNode = function (cityData, targetId) {
+      let arr = []
+      arr = reCall(cityData, targetId, arr)
+      return arr
+    }
+    // 根据数组id寻找上层父节点
+    function findParent(cityData, cId) {
+      let arr = getTreedataNode(cityData, cId)
+      let arrId = arr.map(v => v.parentId)
+      let parentArr = getTreedataNode(cityData, arrId) || [];
+      return parentArr
+    }
+    // 根据数组id寻找删除节点
+    function delTreeId(cityData, targetId) {
+      let parentArr = findParent(cityData, targetId)
+      parentArr.forEach(v => {
+        targetId.forEach(s => {
+          let parent = v;
+          let targetNum = s;
+          let index = parent.children.findIndex(v => v.id === targetNum)
+          if (index > -1) {
+            parent.children.splice(index, 1)
+          }
+        })
+
+        if (v.children.length === 0) {
+          delTreeId(cityData, [v.id])
+        }
+      })
+      return cityData;
+    }
+
+    function reCall(cityData, targetId, arr) {
+      cityData.forEach(s => {
+        let children = s.children
+        if (targetId.includes(s.id)) {
+
+          arr.push(s)
+        }
+        if (children && children.length > 0) {
+          return reCall(children, targetId, arr)
+        }
+      })
+      return arr;
+    }
+    console.log(getTreedataNode(cityData, [2, 1112]))
+  </script>
+</body>
+
+</html>

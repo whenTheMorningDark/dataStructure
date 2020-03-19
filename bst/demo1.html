@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script>
+			function BinarySerachTree() {
+				function Node(key) {
+					this.key = key;
+					this.left = null;
+					this.right = null;
+				}
+
+				this.root = null;
+				//插入
+				BinarySerachTree.prototype.insert = function(key) {
+					let newNode = new Node(key);
+					// 判断根节点是否有值
+					if (this.root === null) {
+						this.root = newNode;
+					} else {
+						this.insertNode(this.root, newNode);
+					}
+				};
+				BinarySerachTree.prototype.insertNode = function(node, newNode) {
+					if (newNode.key < node.key) {
+						// 向左查找
+						if (node.left === null) {
+							node.left = newNode;
+						} else {
+							this.insertNode(node.left, newNode);
+						}
+					} else {
+						//向右查找
+						if (node.right === null) {
+							node.right = newNode;
+						} else {
+							this.insertNode(node.right, newNode);
+						}
+					}
+				};
+				// 先序遍历
+				BinarySerachTree.prototype.preOrderTraversal = function(handler) {
+					this.preOrderTraversalNode(this.root, handler);
+				};
+				BinarySerachTree.prototype.preOrderTraversalNode = function(
+					node,
+					handler
+				) {
+					if (node !== null) {
+						handler(node.key);
+						this.preOrderTraversalNode(node.left, handler);
+						console.log(node.key);
+						this.preOrderTraversalNode(node.right, handler);
+						console.log(node.key);
+					}
+				};
+				// 寻找最值
+				BinarySerachTree.prototype.max = function() {
+					let node = this.root;
+					console.log(node);
+					while (node.right !== null) {
+						node = node.right;
+						console.log(node);
+					}
+					console.log(node);
+					return node.key;
+				};
+				BinarySerachTree.prototype.min = function() {
+					let node = this.root;
+					while (node.left !== null) {
+						node = node.left;
+					}
+					return node.key;
+				};
+				BinarySerachTree.prototype.find = function(key) {
+					let node = this.root;
+					return this.findFun(node, key);
+					// while (node != null) {
+					//   if (key < node.key) {
+					//     node = node.left;
+					//   } else if (key > node.key) {
+					//     node = node.right
+					//   } else {
+					//     return node;
+					//   }
+					// }
+					// return null;
+				};
+				BinarySerachTree.prototype.findFun = function(node, key) {
+					// let nod
+					if (node === null) {
+						return null;
+					}
+					if (key < node.key) {
+						let leftNode = this.findFun(node.left, key);
+						node = leftNode;
+					} else if (key > node.key) {
+						let rightNode = this.findFun(node.right, key);
+						node = rightNode;
+					}
+					return node;
+				};
+				// 删除节点
+				BinarySerachTree.prototype.remove = function(key) {
+					// 寻找删除的节点
+					// let node = this.find(key);
+					let current = this.root;
+					let parents = null;
+					var isLeftChild = true;
+
+					while (current.key !== key) {
+						parents = current;
+						if (key < current.key) {
+							isLeftChild = true;
+							current = current.left;
+						} else {
+							isLeftChild = false;
+							current = current.right;
+						}
+
+						if (current === null) {
+							return false;
+						}
+					}
+					// 删除的是叶子节点
+					if ((current.left === null) & (current.right === null)) {
+						if (current === this.root) {
+							// 根节点也是叶子节点
+							this.root = null;
+						} else if (isLeftChild) {
+							parents.left = null;
+						} else {
+							parents.right = null;
+						}
+					} else if (current.right === null) {
+						// 删除的节点只有一个子节点
+						if (current === this.root) {
+							this.root = current.left;
+						} else {
+							if (isLeftChild) {
+								parents.left = current.left;
+							} else {
+								parents.right = current.left;
+							}
+						}
+					} else if (current.left === null) {
+						if (current === this.root) {
+							this.root = current.right;
+						} else {
+							if (isLeftChild) {
+								parents.left = current.right;
+							} else {
+								parents.right = current.right;
+							}
+						}
+					} else {
+						// 两个子节点
+						let succssor = this.getSuccssor(current);
+						if (current === this.root) {
+							this.root = succssor;
+						} else if (isLeftChild) {
+							parents.left = succssor;
+						} else {
+							parents.right = succssor;
+						}
+						succssor.left = current.left;
+					}
+				};
+				BinarySerachTree.prototype.getSuccssor = function(delNode) {
+					// 定义变量后继
+					let succssor = delNode;
+					let current = delNode.right;
+					let succssorParent = delNode;
+					while (current != null) {
+						succssorParent = succssor;
+						succssor = current;
+						current = current.left;
+					}
+					// 判断寻找后记节点是否是delnoDe的right节点
+					if (succssor !== delNode.right) {
+						succssorParent.left = succssor.right;
+						succssor.right = delNode.right;
+					}
+					return succssor;
+				};
+			}
+			// 测试
+			let bst = new BinarySerachTree();
+			bst.insert(11);
+			bst.insert(7);
+			bst.insert(15);
+			bst.insert(5);
+			bst.insert(3);
+			bst.insert(9);
+			bst.insert(8);
+			bst.insert(10);
+			bst.insert(13);
+			bst.insert(12);
+			bst.insert(14);
+			bst.insert(20);
+			bst.insert(18);
+			bst.insert(25);
+			bst.insert(6);
+			let result = '';
+			bst.preOrderTraversal(function(key) {
+				result += key + ',';
+			});
+			// alert(result);
+			console.log(result);
+			console.log(bst.max());
+			console.log(bst.find(7));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  // 简述https原理，以及与http的区别
+  http协议的缺点:
+  1.通信使用明文,内容可能被窃听
+  2.不验证通信方身份，有可能遭遇伪装(跨站点请求伪造)
+  3.无法证明保温的完整性,有可能已遭改变
+  https是在http协议基础上加入加密处理和认证机制以及完整性保护，即http+加密+认证+完整性保护=https
+  https并非应用层的一种新协议，只是http通信接口部分用ssl/tls协议代替而已。通常http直接和tcp通信，当使用ssl时则演变成先和ssl通信，再由ssl和tcp通信。
+  所谓https，其实就是身披ssl协议这层外壳的http
+  <script>
+
+
+  </script>
+</body>
+
+</html>

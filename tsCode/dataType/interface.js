@@ -1,3 +1,0 @@
-var tom = {
-    game: 'lol'
-};

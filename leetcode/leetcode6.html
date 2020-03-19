@@ -18,10 +18,137 @@
 
     // 输入: 1->2->3->4->5->NULL, m = 2, n = 4
     // 输出: 1->4->3->2->5->NULL
-    function ListNode(val) {
-      this.val = val;
+    function Node(data) {
+      this.data = data;
       this.next = null;
     }
+
+    function LinkedList() {
+
+
+      this.head = null;
+      this.length = 0;
+
+      LinkedList.prototype.append = function (data) {
+        // 判断是不是新加的第一个节点
+        let newNode = new Node(data);
+        if (this.length === 0) {
+          this.head = newNode;
+        } else {
+          let current = this.head;
+
+          while (current.next) {
+            current = current.next;
+          }
+          current.next = newNode;
+        }
+        this.length += 1;
+      };
+      LinkedList.prototype.toString = function () {
+        let current = this.head;
+        let listString = '';
+        while (current) {
+          listString += current.data + ' ';
+          current = current.next;
+        }
+        return listString;
+      };
+      LinkedList.prototype.insert = function (newData, item) {
+        let newNode = new Node(newData);
+        let current = this.find(item);
+        newNode.next = current.next;
+        current.next = newNode;
+        this.length += 1;
+      };
+
+      LinkedList.prototype.find = function (item) {
+        let currentNode = this.head;
+        while (currentNode.data != item) {
+          currentNode = currentNode.next;
+          if (!currentNode) {
+            break;
+          }
+        }
+
+        return currentNode;
+      };
+      // 找到上一个节点
+      LinkedList.prototype.findPrev = function (item) {
+        let currentNode = this.head;
+        while (currentNode.next && currentNode.next.data !== item) {
+          currentNode = currentNode.next;
+        }
+        return currentNode;
+      };
+      // 删除节点
+      LinkedList.prototype.remove = function (item) {
+        let prev = this.findPrev(item);
+        prev.next = prev.next.next;
+      };
+      // 更新节点
+      LinkedList.prototype.update = function (item, data) {
+        let currentNode = this.find(item);
+        currentNode.data = data;
+      };
+      // 反转节点
+      LinkedList.prototype.reverse = function () {
+        let head = this.head;
+        let r = (pre, cur) => {
+          if (!cur) {
+            this.head = pre;
+            return;
+          }
+          // 保存 next 节点
+          let next = cur.next;
+          cur.next = pre;
+          r(cur, next);
+        };
+        return r(null, head);
+      };
+    }
+    var reverseBetween = function (head, m, n) {
+      let count = n - m;
+      let p = dummyHead = new Node();
+      let pre, cur, front, tail;
+      p.next = head;
+      for (let i = 0; i < m - 1; i++) {
+        p = p.next;
+      }
+      // 保存前节点
+      front = p;
+      console.log(p)
+      // 同时保存区间首节点
+      pre = tail = p.next;
+      cur = pre.next;
+      // 区间反转
+      for (let i = 0; i < count; i++) {
+        let next = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = next;
+      }
+
+      // // // 前节点的 next 指向区间末尾
+      front.next = pre;
+      // // // // 区间首节点的 next 指向后节点(循环完后的cur就是区间后面第一个节点，即后节点)
+      tail.next = cur;
+      console.log(front)
+      // console.log(cur)
+      // console.log(pre)
+      // console.log(tail)
+      console.log(dummyHead);
+      return dummyHead.next;
+    };
+    let list = new LinkedList();
+    list.append('1');
+    list.append('2');
+    list.append('3');
+    list.append('4');
+    list.append('5');
+    // list.update('d', 'qaq');
+    // list.reverse();
+    console.log(list.head);
+    console.log(reverseBetween(list.head, 2, 4));
   </script>
 </body>
 

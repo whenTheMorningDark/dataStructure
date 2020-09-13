@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // js中快速排序
+    // 快速主要是利用一个中间数,将小于这个中间数的部分放到一个数组中;将大于这个中间数的另外一个数组中，递归调用之后直到数组中只有一个数为止，然后将左右数组合并成一个数组。
+    let arr = [2, 5, 1, 7, 4, 8, 33, 55, 66, 33, 22, 234];
+
+    // function fastSort(arr) {
+    //   if (arr.length <= 1) {
+    //     return arr
+    //   }
+    //   let left = []
+    //   let right = []
+    //   let mid = Math.floor(arr.length / 2)
+    //   let midNum = arr.splice(mid, 1)[0]
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] <= midNum) {
+    //       left.push(arr[i])
+    //     } else {
+    //       right.push(arr[i])
+    //     }
+    //   }
+    //   return fastSort(left).concat([midNum], fastSort(right))
+    // }
+    // console.log(fastSort(arr))
+
+    // 插入排序
+    // 原理：拿自己和前面的数比较，如果比自己大，让他依次往后移动一个位置，直到前面的数自己小，放入该位置。
+    function insertionSort(arr) {
+      let start = 1;
+      for (let i = start; i < arr.length; i++) {
+        let key = arr[i]
+        let j = i - 1
+        while (arr[j] > key) {
+          arr[j + 1] = arr[j]
+          j--
+        }
+        arr[j + 1] = key
+      }
+      return arr
+    }
+    console.log(insertionSort(arr))
+  </script>
+</body>
+
+</html>

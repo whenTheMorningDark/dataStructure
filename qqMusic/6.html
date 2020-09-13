@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  事件循环机制涉及到两个知识点 macroTask 和 microTask，一般我们会称之为宏任务和微任务。不管是macroTask还是microTask，他们都是以一种任务队列的形式存在。
+
+  宏任务
+  script(整体代码)， setTimeout, setInterval，setImmediate(仅IE支持), I/O, UI-rendering
+
+  微任务
+  包括：Promises,process.nextTick, Object.observe(已废弃)，MutationObserver(监听DOM改变)
+
+  先执行一个 macroTask（宏任务） 任务(例如执行整个js文件内的代码)
+  执行完 macroTask（宏任务） 任务后，找到microTask（微任务）队列内的所有任务，按先后顺序取出并执行
+  执行完microTask（微任务）内的所有任务后，再从macroTask（宏任务）取出一个任务，执行。
+  重复：2，3 步骤。
+  从广义上一句话总结: 一个宏任务执行完后，会执行完所有的微任务，再又执行一个宏任务。依此循环，这也就是事件循环。
+
+  vue中的nextTick函数其实是做了两个事情 一个是生成timerfunc 把回调当作作为一个microtask或macroTask参与到事件循环
+  二 把回调函数放入到一个队列中，等待合适的时间去执行
+
+  https://segmentfault.com/a/1190000013314893
+
+  <script>
+    // vue中nextTick的实现，结合浏览器事件循环机制说一下？
+  </script>
+</body>
+
+</html>

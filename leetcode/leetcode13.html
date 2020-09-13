@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var findRepeatedDnaSequences = function (s) {
+      let target = {};
+      let result = []
+      for (let i = 0; i < s.length; i++) {
+        let result = s.substring(i, i + 10)
+        if (!target[result]) {
+          target[result] = 1
+        } else {
+          target[result]++
+        }
+      }
+      for (let key in target) {
+        if (target[key] > 1) {
+          result.push(key)
+        }
+      }
+      return result
+    };
+    let s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+    console.log(findRepeatedDnaSequences(s))
+  </script>
+</body>
+
+</html>

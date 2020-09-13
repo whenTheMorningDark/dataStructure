@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let obj1 = {
+      a: 1,
+      b: [{
+        a: 2,
+        c: [{
+          s: 1
+        }, {
+          s: 2
+        }]
+      }, {
+        a: 2
+      }]
+    }
+    let obj2 = {
+      a: 1,
+      b: [{
+        a: 2,
+        c: [{
+          s: 1
+        }, {
+          s: 3
+        }]
+      }, {
+        a: 3
+      }],
+      c: "p"
+    }
+
+    function scalarArrayEquals(array1, array2) {
+      array1.length && array2.length && array1.length === array2
+        .length && array1.every(function (v, i) {
+          return v === array2[i];
+        });
+    }
+
+    function compare(obj1, obj2) {
+      for (let key in obj1) {
+        if (!Array.isArray(obj1[key])) {
+          if (obj2[key] !== obj1[key]) {
+            return false;
+          }
+        } else {
+          if (obj1[key].length !== obj2[key].length) {
+            return false
+          }
+          console.log(obj1[key])
+          console.log(obj2[key])
+          obj1[key].forEach(s => {
+            obj2[key].forEach(v => {
+              console.log(s)
+              console.log(v)
+            })
+          })
+
+          return compare(obj1[key][1], obj2[key][1])
+        }
+      }
+      return true;
+    }
+
+    console.log(compare(obj1, obj2))
+  </script>
+</body>
+
+</html>

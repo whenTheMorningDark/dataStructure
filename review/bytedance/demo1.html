@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+
+    .a {
+      /* padding的百分比相对于宽度来进行计算; */
+      display: flex;
+      height: 0;
+      padding: 25% 0;
+      width: 100%;
+      background: blue;
+      text-align: center;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 字节跳动第一题 -->
+  <div class="wrapper">
+    <div class="a">
+      a
+    </div>
+  </div>
+</body>
+
+</html>

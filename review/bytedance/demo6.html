@@ -1,0 +1,32 @@
+<script>
+  // 请用算法实现，从给定的无序、不重复的数组data中，取出n个数，使其相加和为sum。并给出算法的时间/空间复杂度 。(不需要找到所有的解，找到一个解即可)
+  // [1,2,3,4,5,6] 11
+  let arr = [1, 2, 3, 4, 5, 6]
+  /*
+  [4,5,6]
+  [3,4,5,6]
+  [2,3,4,5,6]
+  */
+  // temp 保存当前数字的组合
+  function getAllCombine(array, n, sum, temp) {
+    if (temp.length === n) {
+      if (temp.reduce((a, b) => a + b) === sum) {
+        return temp;
+      }
+      return false
+    }
+    for (let i = 0; i < array.length; i++) {
+      // const element = array[i];
+      const current = array.shift()
+      temp.push(current)
+      let result = getAllCombine(array, n, sum, temp)
+      if (result) {
+        return result
+      }
+      // temp = [1,2,3]
+      temp.pop()
+      array.push(current)
+    }
+  }
+  console.log(getAllCombine(arr, 3, 15, []))
+</script>

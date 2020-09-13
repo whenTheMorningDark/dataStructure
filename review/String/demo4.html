@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+    // 双指针
+    var strStr = function (haystack, needle) {
+      let l = needle.length;
+      let n = haystack.length;
+      if (l == 0) {
+        return 0
+      }
+      let pn = 0;
+      while (pn < n - l + 1) {
+        while (pn < n - l + 1 && haystack.charAt(pn) != needle.charAt(0)) {
+          ++pn;
+        }
+        let currLen = 0;
+        let pL = 0;
+        while (pL < l && pn < n && haystack.charAt(pn) == needle.charAt(pL)) {
+          ++pn;
+          ++pL;
+          ++currLen;
+        }
+
+        // if the whole needle string is found,
+        // return its start position
+        if (currLen == l) return pn - l;
+
+        // otherwise, backtrack
+        pn = pn - currLen + 1;
+      }
+      return -1;
+    };
+    let haystack = "mississippi";
+    let needle = "issip";
+    console.log(strStr(haystack, needle))
+  </script>
+</body>
+
+</html>

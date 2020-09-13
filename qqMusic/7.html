@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 、手写bind 严格模式是undefine apply call
+    let name = "window"
+    let obj = {
+      name: "1",
+      getName(name) {
+        return name;
+      }
+    }
+    let obj2 = {
+      name: "obj2"
+    }
+    // console.log(obj.getName.bind(obj2)("sss"))
+    // Function.prototype.myApply = function (context, args) {
+    //   context = context || window;
+    //   args = args ? args : []
+    //   let key = Symbol()
+    //   context[key] = this
+    //   const result = context[key](...args)
+    //   //删除添加的属性
+    //   delete context[key]
+    //   //返回函数调用的返回值
+    //   return result
+    // }
+
+    // Function.prototype.myCall = function (context, ...args) {
+    //   context = context || window;
+    //   args = args ? args : []
+    //   console.log(args)
+    //   let key = Symbol()
+    //   context[key] = this
+    //   const result = context[key](...args)
+    //   //删除添加的属性
+    //   delete context[key]
+    //   //返回函数调用的返回值
+    //   return result
+    // }
+
+    Function.prototype.myBind = function (context) {
+      let self = this;
+      let arg = [...arguments].slice(1)
+      return function () {
+        let newArgs = [...arguments]
+        console.log(newArgs)
+        console.log(arg.concat(newArgs))
+        return self.apply(context, arg.concat(newArgs))
+      }
+    }
+
+    console.log(obj.getName.myBind(obj2)("kafei", "sss"))
+
+    //  function myApply(){
+
+    //  }
+  </script>
+</body>
+
+</html>

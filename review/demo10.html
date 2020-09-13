@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个字符串，找出其中无重复字符的最长子字符串长度—字节跳动前端面试题
+    /*
+    "ab".substr(2) 相当于删除 但是不影响原有的字符串
+    */
+    let str = "adw"
+
+    function maxNorepeatStr(str) {
+      let result = 1;
+      let norepeatStr = "";
+      let nexStr = {};
+      let len = str.length;
+      for (let i = 0; i < len; i++) {
+        let specStr = str.charAt(i);
+        let index = norepeatStr.indexOf(specStr)
+        if (index === -1) {
+          norepeatStr = norepeatStr + specStr;
+          console.log(norepeatStr)
+          result = result < norepeatStr.length ? norepeatStr.length : result
+          if (!nexStr[result]) {
+            nexStr[result] = norepeatStr
+          }
+        } else {
+          norepeatStr = norepeatStr.substr(index + 1) + specStr
+        }
+      }
+      console.log(nexStr)
+      return nexStr[result]
+
+      // let newArr = [];
+      // for (let i = 0; i < str.length; i++) {
+      //   let specStr = str.charAt(i);
+      //   if (!newArr.includes(specStr)) {
+      //     console.log(specStr)
+      //     newArr.push(specStr)
+      //   } else {
+      //     console.log(specStr)
+      //     console.log(i)
+
+      //   }
+      // }
+      // console.log(newArr)
+    }
+    console.log(maxNorepeatStr(str))
+  </script>
+</body>
+
+</html>

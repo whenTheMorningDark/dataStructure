@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 电话号码
+
+
+    var letterCombinations = function (digits) {
+      // console.log()
+      let temp = []
+      temp.push(...digits)
+      console.log(temp)
+      // const maps = {
+      //   2: "abc",
+      //   3: "def",
+      //   4: "ghi",
+      //   5: "jkl",
+      //   6: "mno",
+      //   7: "pqrs",
+      //   8: "tuv",
+      //   9: "wxyz"
+      // }
+      // const res = [];
+      // for (let num of digits) {
+      //   let w = maps[num];
+      //   if (res.length > 0) {
+      //     let tmp = [];
+      //     for (let i = 0; i < res.length; i++) {
+      //       let wl = w.length;
+      //       for (let j = 1; j < wl; j++) {
+      //         tmp.push(res[i] + w[j])
+      //       }
+      //       res[i] += w[0];
+      //     }
+      //     res.push(...tmp)
+      //   } else {
+      //     res.push(...w);
+      //   }
+      // }
+      // return res;
+
+    };
+
+    // function comb(arr) {
+    //   let tmp = []
+    //   for (let i = 0; i < arr[0].length; i++) {
+    //     for (let j = 0; j < arr[1].length; j++) {
+    //       tmp.push(arr[0][i] + "" + arr[1][j])
+    //     }
+    //   }
+    //   arr.splice(0, 2, tmp)
+    //   if (arr.length > 1) {
+    //     comb(arr)
+    //   }
+    //   return arr[0]
+    // }
+    console.log(letterCombinations("23"))
+  </script>
+</body>
+
+</html>

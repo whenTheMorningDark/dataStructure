@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let tree = [{
+        id: 1,
+        text: "text1",
+        children: [{
+          id: 2,
+          pId: 1,
+          text: "text1-1",
+          children: [{
+            id: 3,
+            pId: 2,
+            text: "text1-1-1",
+            children: []
+          }]
+        }]
+      },
+      {
+        id: 4,
+        text: "text4-1",
+        children: [{
+          id: 5,
+          pId: 4,
+          text: "text4-1-2",
+          children: []
+        }]
+      }
+    ]
+
+    const range = (treeData, id) => {
+      if (!treeData || !treeData.length) {
+        return
+      }
+      let stack = []
+      let item = null;
+      treeData.forEach(v => {
+        stack.push(v)
+      })
+      while (stack.length) {
+        item = stack.shift();
+        if (item.id === id) {
+          return item;
+        }
+        if (item.children && item.children.length) {
+          stack = stack.concat(item.children)
+        }
+      }
+      return item
+    }
+    console.log(range(tree, 3))
+  </script>
+</body>
+
+</html>

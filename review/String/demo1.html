@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script>
+			let str = "Let's take LeetCode contest";
+
+			// function reverseWords(s) {
+			// 	if (!s || s.length === 0) {
+			// 		return s;
+			// 	}
+			// 	let arr = s.split(' ');
+			// 	let result = arr.map((v) => {
+			// 		return v.split('').reverse().join('');
+			// 	});
+			// 	return result.join(' ');
+			// }
+			function reverseWords(s) {
+				if (!s || s.length === 0) {
+					return s;
+				}
+				return s
+					.split(/\s/g)
+					.map((v) => v.split('').reverse().join(''))
+					.join(' ');
+			}
+			console.log(reverseWords(str));
+		</script>
+	</body>
+</html>

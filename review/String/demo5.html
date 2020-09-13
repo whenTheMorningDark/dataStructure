@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!-- 给定一个仅包含大小写字母和空格 ' ' 的字符串 s，返回其最后一个单词的长度。如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。
+
+如果不存在最后一个单词，请返回 0 。
+
+说明：一个单词是指仅由字母组成、不包含任何空格字符的 最大子字符串。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/length-of-last-word -->
+		<script>
+			let str = '  ';
+			var lengthOfLastWord = function (s) {
+				let arr = s.split(' ');
+				let res = [];
+				let currentIndex = arr.length - 1;
+				let lastStr = arr[currentIndex];
+				res.push(lastStr);
+				while (res.length) {
+					let v = res.shift();
+					if (v.length === 0) {
+						currentIndex--;
+						if (currentIndex >= 0) {
+							res.push(arr[currentIndex]);
+						} else {
+							return 0;
+						}
+					} else {
+						return v.length;
+					}
+				}
+			};
+			console.log(lengthOfLastWord(str));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 手写promise
+    function Promise(fn) {
+      this.value = undefined // 成功
+      this.err = undefined // 失败
+      this.status = "pending" // 开始状态
+      let t = this;
+
+      function resolve(val) {
+        if (t.status === "pending") {
+          t.value = val
+          t.status = "success"
+        }
+      }
+
+      function reject(err) {
+        if (t.status === "pending") {
+          t.err = err
+          t.status = "fail"
+        }
+      }
+      fn(resolve, reject)
+    }
+
+    Promise.prototype.then = function (isSuccess, isFail) {
+      var t = this
+      return new Promise((resolve, reject) => {
+        if (t.status === 'success') {
+          // 将then1回调函数返回的值传给then2回调函数，以此类推
+          resolve(isSuccess(t.value))
+        }
+        if (t.status === 'fail') {
+          reject(isFail(t.err))
+        }
+      })
+    }
+    new Promise((resolve, reject) => {
+      if (1) {
+        resolve("xxxx")
+      }
+    }).then(val => {
+      console.log(val)
+    })
+  </script>
+</body>
+
+</html>

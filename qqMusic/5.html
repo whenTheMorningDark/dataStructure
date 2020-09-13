@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  https://juejin.im/post/6844904178100207623
+  <!-- 说一下原型链，原型链实现继承。 -->
+  <!-- 所有的引用类型（数组、对象、函数）都有一个 _proto_ 属性(隐式原型属性），属性值是一个普通的对象
+  所有的函数，都有一个 prototype(显式原型）属性，属性值也是一个普通的对象
+  所有的引用类型（数组、对象、函数）， _proto_ 属性值(隐式原型属性）指向它的构造函数的“prototype”属性值 -->
+  <!-- 原型链实现继承 -->
+  https://www.cnblogs.com/DF-fzh/p/5619319.html
+  <script>
+    function Person(name) {
+      this.name = name
+    }
+    Person.prototype.showName = function (name) {
+      return this.name
+    }
+
+    function Student(name, age) {
+      Person.call(this, name)
+      this.age = age
+    }
+
+    Student.prototype = new Person()
+    Student.prototype.showAge = function () {
+      return this.age;
+    }
+    let stu = new Student("ka", 17)
+    console.log(stu.showName())
+    console.log(stu.showAge())
+    console.log(new Person("xx"))
+  </script>
+</body>
+
+</html>

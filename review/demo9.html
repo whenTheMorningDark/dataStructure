@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 写一个js函数，实现对一个数字每3位加一个逗号，如输入100000， 输出100,000（不考虑负数，小数）—百度前端面试题
+    function main(num, n) {
+      let arr = []
+      // console.log(s(num, arr))
+      let sArr = s(num, arr, n);
+      let str = sArr.reverse().join(",");
+      return str
+
+    }
+
+    function s(num, arr, n) {
+      if (num.length > n) {
+        arr[arr.length] = num.slice(-n)
+        s(num.slice(0, -n), arr, n)
+      } else {
+        arr[arr.length] = num
+      }
+      return arr;
+    }
+    let str = "12345678";
+    console.log(main(str, 2))
+  </script>
+</body>
+
+</html>

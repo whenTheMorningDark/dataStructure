@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Graph() {
+      // 顶点 边
+      this.vertices = [] // 顶点
+      this.edges = {} // 边
+      this.res = [] // 最短路径结果
+      this.hasRes = false // 至少有一个可以到达的路径
+      // 添加顶点方法
+      Graph.prototype.addVertex = function (v) {
+        this.vertices.push(v)
+        this.edges[v] = []
+      }
+      // 添加边的方法
+      Graph.prototype.addEdge = function (v1, v2) {
+        this.edges[v1].push(v2)
+        this.edges[v2].push(v1)
+      }
+      Graph.prototype.toString = function () {
+        let resultStr = "";
+        this.vertices.forEach(s => {
+          resultStr += s + "->"
+          let vEdges = this.edges[s]
+          vEdges.forEach(v => {
+            resultStr += v + " "
+          })
+          resultStr += "\n"
+        })
+        return resultStr
+      }
+      Graph.prototype.minPath = function (v, w) {
+        this.step(this.edges[v], [v], w)
+        return this.res
+      }
+      Graph.prototype.step = function (adjacentNodes, tempRes, w) {
+        if (!adjacentNodes) { // 没有相邻节点
+          return;
+        }
+        //存在可以到达的路径，并且比正在探测的路径短则直接退出探测
+        if (this.hasRes && this.res.length < tempRes.length) {
+          return;
+        }
+
+        adjacentNodes.forEach(item => {
+          //当前探测的点已经走过了，不再重复走
+          if (tempRes.indexOf(item) !== -1) {
+            return
+          }
+
+          let newTempRes = tempRes.concat(item)
+
+          if (item === w) { // 到达终点
+            if (this.hasRes) {
+              if (newTempRes.length < this.res.length) {
+                //已有最短路径，且比当前路径更短，替换
+                this.res = newTempRes;
+              }
+            } else {
+              this.res = newTempRes;
+              this.hasRes = true;
+            }
+          } else {
+            this.step(this.edges[item], newTempRes, w)
+          }
+
+        })
+
+
+      }
+    }
+    let graph = new Graph();
+    let myVerterxs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "s", "m"]
+    myVerterxs.forEach(v => {
+      graph.addVertex(v)
+    })
+    graph.addEdge("a", "b")
+    graph.addEdge("a", "c")
+    graph.addEdge("a", "d")
+    graph.addEdge("b", "e")
+    graph.addEdge("c", "f")
+    graph.addEdge("d", "g")
+    graph.addEdge("f", "g")
+    console.log(graph)
+    console.log(graph.minPath("a", "g"));
+  </script>
+</body>
+
+</html>

@@ -11,61 +11,37 @@
   <script>
     let cityData = [{
         id: 1,
-        name: '广东省',
+        text: 1,
         children: [{
-          id: 11,
+          id: 7,
           parentId: 1,
-          name: '深圳',
+          text: 2,
           children: [{
-              id: 111,
-              name: '宝安',
-              parentId: 11,
-              children: [{
-                  id: 1111,
-                  name: '西乡',
-                  parentId: 111,
-                  children: [{
-                      id: 11111,
-                      name: '坪洲',
-                      parentId: 1111,
-                      children: []
-                    },
-                    {
-                      id: 11112,
-                      name: '灵芝',
-                      children: [],
-                      parentId: 1111
-                    }
-                  ]
-                },
-                {
-                  id: 1112,
-                  name: '南山',
-                  parentId: 111,
-                  children: [{
-                    id: 11121,
-                    name: '科技园',
-                    children: [],
-                    parentId: 1112
-                  }]
-                }
-              ]
-            },
-            {
-              id: 112,
-              name: '福田',
-              children: [],
-              parentId: 11
-            }
-          ]
+            id: 3,
+            parentId: 7
+          }]
         }]
       },
       {
-        id: 2,
-        name: '湖南省',
-        children: []
+        id: 4,
+        text: 4
       }
     ];
+    // 根据数组id找到最顶层元素
+    function treeFindPath(tree, func, path = []) {
+      if (!tree) return []
+      for (const data of tree) {
+        // 这里按照你的需求来存放最后返回的内容吧
+        path.push(data)
+        if (func(data)) return path
+        if (data.children) {
+          const findChildren = treeFindPath(data.children, func, path)
+          if (findChildren.length) return findChildren
+        }
+        path.pop()
+      }
+      return []
+    }
     // 根据数组id获取元素
     let getTreedataNode = function (cityData, targetId) {
       let arr = []
@@ -112,7 +88,7 @@
       })
       return arr;
     }
-    console.log(getTreedataNode(cityData, [2, 1112]))
+    console.log(treeFindPath(cityData, data => data.id === 3))
   </script>
 </body>
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  实现原生ajax
+  <script>
+    // username="kafei" & password="xxx"
+    function formatParams(data) {
+      let str = "";
+      for (let key in data) {
+        str += key + '=' + data[key] + "&"
+      }
+      return str.substring(0, str.length - 1)
+    }
+
+    function ajax(options) {
+      console.log(options)
+      options = options || {}
+      options.type = (options.type || "GET").toUpperCase()
+      options.dataType = options.dataType || "json"
+
+      let params = formatParams(options.data)
+      let xhr = new XMLHttpRequest();
+      if (options.type === "GET") {
+
+        console.log(params)
+        xhr.open("GET", options.url + "?" + params, true)
+        xhr.send(null);
+      } else if (options.type === "POST") {
+        xhr.open("post", options.url, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        console.log(params)
+        xhr.send(params);
+      }
+      console.log(xhr)
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          console.log(xhr)
+          var status = xhr.status;
+          if (status >= 200 && status < 300 || status == 304) {
+            options.success && options.success(xhr.responseText, xhr.responseXML);
+          } else {
+            options.error && options.error(status);
+          }
+        }
+      }
+
+    }
+    ajax({
+      type: "POST",
+      url: "https://www.baidu.com",
+      data: {
+        username: "kafei",
+        password: "xxx"
+      },
+      success: () => {
+        console.log("成功!")
+      },
+      error: () => {
+        console.log("error")
+      }
+    })
+  </script>
+</body>
+
+</html>

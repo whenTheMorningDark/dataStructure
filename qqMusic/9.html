@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  强缓存和协商缓存 https://www.jianshu.com/p/9c95db596df5
+  强缓存具体表现在 respone header中的cache-control 常见的设置是max-age public private no-cahe
+  max-age 表示的是缓存的时间
+  public表示可以被浏览器和代理服务器缓存
+  再加上一个immutable就算是刷新也不会去请求
+  cache-control: no-cache 就不会走强缓存了,每次请求都会询问服务端
+  cache-control: no-store
+  不缓存，这个会让客户端、服务器都不缓存，也就没有所谓的强缓存、协商缓存了。
+
+  协商缓存
+  在responese header中设置:
+  etag: '5c20abbd-e2e8'
+  last-modified: Mon, 24 Dec 2018 09:49:49 GMT
+
+  <script>
+
+  </script>
+</body>
+
+</html>

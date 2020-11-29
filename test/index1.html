@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let params = {
+      projectCode: 2,
+      token: "Bearer",
+      projectNo: "xxx"
+    };
+    let url = "http://a.com/b?a=1&b={token}&rediect=http://www.baidu.com"
+
+    function filter(str) {
+      // 特殊字符转义
+      str += ""; // 隐式转换
+      str = str.replace(/%/g, "%25");
+      str = str.replace(/\+/g, "%2B");
+      str = str.replace(/ /g, "%20");
+      str = str.replace(/\//g, "%2F");
+      str = str.replace(/\?/g, "%3F");
+      str = str.replace(/&/g, "%26");
+      str = str.replace(/\=/g, "%3D");
+      str = str.replace(/#/g, "%23");
+      return str;
+    }
+
+    function getQueryObject(url) {
+      url = url === null ? window.location.href : url;
+      const search = url.substring(url.lastIndexOf("?") + 1);
+      const obj = {};
+      const reg = /([^?&=]+)=([^?&=]*)/g;
+      search.replace(reg, (rs, $1, $2) => {
+        const name = decodeURIComponent($1);
+        let val = decodeURIComponent($2);
+        val = String(val);
+        obj[name] = val;
+        return rs;
+      });
+      return obj;
+    }
+
+    function formateObjToParamStr(paramObj) {
+      const sdata = [];
+      for (let attr in paramObj) {
+        sdata.push(`${attr}=${filter(paramObj[attr])}`);
+      }
+      return sdata.join("&");
+    }
+
+    function changeUrl(url, params) {
+      let queryObj = getQueryObject(url);
+      let targetUrl = url.split("?")[0];
+      for (let key in queryObj) {
+        if (queryObj[key] && queryObj[key].indexOf("{") === 0) {
+          let str = queryObj[key].replace(/(^{*)|(}*$)/g, "");
+          if (params.hasOwnProperty(str)) {
+            queryObj[key] = params[str];
+          }
+        }
+      }
+      if (!queryObj.token) {
+        queryObj.token = params.token;
+      }
+      console.log(queryObj)
+      let str = formateObjToParamStr(queryObj);
+      console.log(str)
+      return `${targetUrl}?${str}`;
+    }
+    console.log(changeUrl(url, params))
+  </script>
+</body>
+
+</html>

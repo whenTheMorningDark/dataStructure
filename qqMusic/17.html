@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  // computed怎么实现的缓存（dirty)
+  https://cloud.tencent.com/developer/article/1479094
+  1一开始每个 computed 新建自己的watcher时，会设置 watcher.dirty = true，以便于computed 被使用时，会计算得到值
+
+  2当 依赖的数据变化了，通知 computed 时，会设置 watcher.dirty = true，以便于其他地方重新渲染，从而重新读取 computed 时，此时 computed 重新计算
+
+  3computed 计算完成之后，会设置 watcher.dirty = false，以便于其他地方再次读取时，使用缓存，免于计
+
+
+
+
+
+  initComputed 这段代码做了几件事
+
+  1、每个 computed 配发 watcher
+
+  2、defineComputed 处理
+
+  3、收集所有 computed 的 watcher
+
+  没错，作用是把计算结果缓存起来，而不是每次使用都要重新计算
+  而这里呢，还把 lazy 赋值给了 dirty，为什么呢？
+  因为 lazy 表示一种固定描述，不可改变，表示这个 watcher 需要缓存
+  而 dirty 表示缓存是否可用，如果为 true，表示缓存脏了，需要重新计算，否则不用
+  dirty 默认是 false 的，而 lazy 赋值给 dirty，就是给一个初始值，表示 你控制缓存的任务开始了
+  所以记住，【dirty】 是真正的控制缓存的关键，而 lazy 只是起到一个开启的作用
+
+
+  控制缓存实在defineComputed 中处理的
+
+  如果 computed 依赖的数据变化，dirty 会变成true
+  watcher.evaluate 用来重新计算，更新缓存值，并重置 dirty 为false，表示缓存已更新
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  性能优化--事件委托
+  <button id="btn">按钮</button>
+  <ul id="ul">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+  <script>
+    window.onload = ()=>{
+      let oUl = document.getElementById("ul")
+      let oBtn = document.getElementById("btn")
+      let num = 5
+      oBtn.onclick = ()=>{
+        var oLi = document.createElement('li');
+        num++
+        oLi.innerHTML = num;
+        oUl.appendChild(oLi);
+      }
+      oUl.onclick = function(evt){
+        console.log(evt)
+        let target = evt.target
+        // if(target)
+        console.log(target.nodeName.toLocaleLowerCase())
+        if(target.nodeName.toLocaleLowerCase() === "li"){
+          alert(target.innerHTML)
+        }
+      }
+    }
+  </script>
+</body>
+</html>

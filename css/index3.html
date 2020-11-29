@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>什么是BFC</div>
+  <div>BFC值得是块格式上下文是web页面的可视化css渲染的一部分，是布局过程中生成会计盒子区域，也是浮动元素和其他元素的交互限定区域</div>
+  <div>创建BFC</div>
+  1.根元素或者包含根元素的元素
+  2.浮动元素float=left
+  3.绝对定位元素
+  4.display显示方式
+  5.overflow超方式
+  BFC指的是块级格式化上下文，一个元素形成了BFC之后，那么它内部元素产生的布局不会影响到外部元素，外部元素的布局也
+不会影响到BFC中的内部元素。一个BFC就像是一个隔离区域，和其他区域互不影响。
+
+一般来说根元素是一个BFC区域，浮动和绝对定位的元素也会形成BFC，display属性的值为inline-block、flex这些
+属性时也会创建BFC。还有就是元素的overflow的值不为visible时都会创建BFC。
+
+</body>
+</html>

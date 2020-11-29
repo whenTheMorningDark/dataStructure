@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>重绘指的是渲染树的一些元素需要更新元素，而这些属性只会影响到元素的风格外观，而不会去影响布局的操作。比如background-color这样我们称为重绘</div>
+  <div>回流（重排）当改变渲染树中的尺寸布局隐藏需要重新构建的操作会影响到布局的操作，我们称为回流或者重排操作。</div>
+  常见引起回流属性和方法
+  1.任何会改变元素的几何信息（元素的位置和尺寸的大小），都会触发回流
+  2.添加或者删除可见的DOM元素
+  3.元素尺寸改变边距填充边框宽度和高度
+  4.内容发生变化比如用户在input框中输入文字
+  5.浏览器窗口尺寸发生改变resize事件发生时
+  6.计算offsetWidth和offsetHeight属性
+  7设置style的值
+  8.当你修改网页默认的字体
+  回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列
+ 回流。
+
+ <div>如何减少重绘和重排</div>
+ 1.使用transform替代top
+ 2.不要把节点的属性值放在一个循坏中的变量
+ 3.不要使用table布局，可能一个很小的改变都会导致整个table的重新布局
+ 4.把 DOM 离线后修改。如：使用 documentFragment 对象在内存里操作 DOM
+ 5.不要一条条的去修改dom样式与其这样还不如定义好css的class然后修改dom的classname
+</body>
+</html>

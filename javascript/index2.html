@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>前端如何做性能优化!</div>
+  <div>
+    1.减少http的请求和请求的大小
+    2.使用webpack等工具对js和css资源进行打包避免js和css过多，但可能会出现打包文件过大的问题
+    3.精灵图合并多个小图成为一个大图利用background-position进行定位使用
+    4.缓存 
+    强缓存的特定是不需要询问服务器他通过expires和cache-control实现 cache-control优先级比较高，他们都是来标识过期的时间
+    协商缓存是请求服务器后服务器来判断是返回新的资源还是告诉浏览器使用旧的资源
+    服务器每次返回资源都会带有时间戳有服务器
+    5.缩小请求体积
+    开启gzip
+    代码压缩删除无用的注释和空行来减少文件的体积
+    图片压缩
+    6.cdn加速
+    7.减少js阻塞所以一般都会把js放在底部
+    async表示js不会阻塞但会在下载完成后立刻执行
+    defer则会在下载完成并且整个文档解析完成、DOMContentLoaded事件被触发前开始执行
+    8.减少渲染次数避免回流和重绘
+    9.减少渲染dom的节点数量
+    10.提高渲染效率
+
+  </div>
+  <div>前端如何检测异常</div>
+  <div>
+    1.try-catch 只能捕获同步运行的异常，对语法和异步错误就无能为力，捕获不到。
+    2.window.onerror,但是这个不是万能的，
+      可以检测到同步的异常，语法的错误不可以，静态资源，接口异常，也无法检测到
+      onerror最好是写在写在所有的脚本之前,onerror 主要是捕获预料之外的错误，try-catch则是在预见错误处理
+    3.静态资源加载异常 使用window.addEventLister进行捕获
+    4.promise的异常 unhandledrejection
+    5.vue的异常 errorHandler 
+    6.崩溃和卡顿
+    .利用 window 对象的 load 和 beforeunload 事件实现了网页崩溃的监控。
+    7.错误上报 动态创建img标签的形式
+    8.default.png需要网咯 base64不用
+  </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>BFC</div>
+  <div>
+    块级格式化上下文:一个元素形成了bfc之后，那么它内部的元素产生的元素就不会去影响到外部元素
+    外部元素的布局也不会影响内部元素，一个bfc就像是是一个隔离的区域和其他区域互不影响
+
+    一般来说根元素就是一个区域，浮动和绝对定位也会形成bfc,display flex也会创建bfc overflow的值不是visible也会创建bfc
+
+  </div>
+</body>
+</html>

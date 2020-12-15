@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let reg = /^[AWSD]\d{1,2}$/
+    // A10;S20;W10;D30;X;A1A;B10A11;;A10;
+    // AA10;  A1A;  $%$;  YAD
+    // let str = "$%$"
+    // console.log(reg.test(str))
+    // A X-
+    // D X+
+    // W Y+
+    // S Y-
+    // function calc(str){
+    //   if(!str){
+    //     return `0,0`
+    //   }
+    //   let targetStack = str.split(";")
+    //   let stack = []
+    //   let initArr = [0,0]
+    //   while(targetStack.length>0){
+    //     let current = targetStack.shift();
+    //     if(reg.test(current)){
+    //       let targetKey = current.substr(0,1)
+    //       let targetNumber = current.substr(1,current.length) * 1
+    //       if(targetKey === 'A'){
+    //         initArr[0] = initArr[0] - targetNumber
+    //       } else if(targetKey === 'D'){
+    //         initArr[0] = initArr[0] + targetNumber
+    //       } else if(targetKey === 'W'){
+    //         initArr[1] = initArr[1] + targetNumber
+    //       }else if(targetKey === 'S'){
+    //         initArr[1] = initArr[1] - targetNumber
+    //       }
+    //     }
+    //   }
+    //   // console.log(initArr)
+    //   return `${initArr}`
+    // }
+    // let str = "A10;S20;W10;D30;X;A1A;B10A11;;A10;"
+    // console.log(calc(str))
+
+  </script>
+</body>
+</html>

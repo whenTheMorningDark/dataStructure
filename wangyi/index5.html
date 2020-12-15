@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 节流和防抖的实现
+    // 防抖
+    function myDebounce(fn,time){
+      let timer = null
+      return function(){
+        clearTimeout(timer)
+        timer = setTimeout(()=>{
+          fn.apply(this,arguments)
+        },time)
+      }
+    }
+    // 节流
+    function myThrottle(fn,time){
+      let run = true;
+      return function(){
+        if(!run){
+          return
+        }
+        run = false
+        setTimeout(()=>{
+          fn.apply(this,arguments)
+          run = true
+        },time)
+      }
+    }
+  </script>
+</body>
+</html>

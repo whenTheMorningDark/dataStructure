@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var splitIntoFibonacci = function (S) {
+    const list = [];
+    const len = S.length, max = Math.pow(2, 31) - 1;
+    const dfs = (index, sum, prev) => {
+        // 字符串全部遍历
+        if (index === len) {
+            return list.length >= 3;
+        }
+        let cur = 0;
+        for (let i = index; i < len; i++) {
+            // 出现0为开头的子串
+            if (i > index && cur === 0) {
+                break;
+            }
+            // 当前值
+            cur = cur * 10 + (+S[i]);
+            if (cur > max) {
+                // 边界最大值
+                break;
+            }
+            if (list.length >= 2) {
+                // 与前两个值的和比较
+                if (cur < sum) {
+                    // 小，进入下层循环，在多取一位
+                    continue;
+                } else if (cur > sum) {
+                    // 大，后续都将不满足
+                    break;
+                }
+            }
+            // 加入当前值
+            list.push(cur);
+            // 后移一位，递归
+            if (dfs(i + 1, cur + prev, cur)) {
+                return true;
+            } else {
+                // 当前分支不满足时，删除加入的数据
+                list.pop();
+            }
+        }
+        return false;
+    };
+    dfs(0, 0, 0);
+    return list;
+};
+  console.log(splitIntoFibonacci("123456579"))
+
+  </script>
+</body>
+</html>
